@@ -37,6 +37,9 @@ M.shade = {
 M.disabled = {
   n = {
       ["<leader>h"] = "",
+      ["<leader>f"] = "",
+      ["<leader>ff"] = "",
+      ["<leader>fw"] = "",
   }
 }
 
