@@ -19,11 +19,24 @@ g.maplocalleader = ","
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
--- Move each line
+-- Move cursor each line
 keymap('n', 'k', 'gk', { silent = true })
 keymap('n', 'j', 'gj', { silent = true })
 keymap('n', '0', 'g0', { silent = true })
 keymap('n', '$', 'g$', { silent = true })
+
+-- Move lines
+keymap('n', '<C-j>', ":MoveLine(1)<CR>", opts)
+keymap('n', '<C-k>', ":MoveLine(-1)<CR>", opts)
+keymap('v', '<C-j>', ":MoveBlock(1)<CR>", opts)
+keymap('v', '<C-k>', ":MoveBlock(-1)<CR>", opts)
+keymap('n', '<C-l>', ":MoveHChar(1)<CR>", opts)
+keymap('n', '<C-h>', ":MoveHChar(-1)<CR>", opts)
+keymap('v', '<C-l>', ":MoveHBlock(1)<CR>", opts)
+keymap('v', '<C-h>', ":MoveHBlock(-1)<CR>", opts)
+
+vim.cmd "let g:move_key_modifier = 'C'"
+vim.cmd "let g:move_key_modifier_visualmode = 'C'"
 
 -- Vim option
 vim.cmd "set whichwrap+=<,>,[,]"
@@ -37,6 +50,7 @@ vim.cmd "set undofile false"
 opt.writebackup = false
 opt.backup = false
 opt.undofile = false
+
 
 new_cmd("EnableShade", function()
   require("shade").setup()

@@ -83,14 +83,32 @@ return {
     config = function()
       require "plugins.configs.nvimtree"
       require "custom.plugins.nvim-tree"
-    end
+    end,
   },
 
   ["karb94/neoscroll.nvim"] = {
     config = function()
       require "custom.plugins.neoscroll"
-    end
+    end,
   },
 
-  ["mg979/vim-visual-multi"] = {}
+  ["mg979/vim-visual-multi"] = {},
+
+  ["matze/vim-move"] = {
+    config = function()
+      require "custom.plugins.vim-move"
+    end,
+  },
+
+  ["folke/trouble.nvim"] = {
+    config = function()
+      require "custom.plugins.trouble"
+    end,
+  },
+
+  ["yamatsum/nvim-cursorline"] = {
+    config = function()
+      require "custom.plugins.nvim-cursorline"
+    end,
+  },
 }
