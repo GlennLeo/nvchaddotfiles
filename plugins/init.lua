@@ -106,6 +106,22 @@ return {
     end,
   },
 
+  ["p00f/nvim-ts-rainbow"] = {},
+
+  ["sindrets/diffview.nvim"] = {
+    config = function()
+      require "custom.plugins.diffview"
+    end,
+  },
+
+  ["kevinhwang91/promise-async"] = {},
+
+  ["kevinhwang91/nvim-ufo"] = {
+    config = function()
+      require "custom.plugins.ufo"
+    end,
+  },
+
   ["yamatsum/nvim-cursorline"] = {
     config = function()
       require "custom.plugins.nvim-cursorline"
