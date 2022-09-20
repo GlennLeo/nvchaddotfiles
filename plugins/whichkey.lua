@@ -7,6 +7,7 @@ end
 -- require("base46").load_highlight "whichkey"
 
 local options = {
+  rm_default_opts = true,
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode

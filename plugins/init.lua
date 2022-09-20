@@ -1,15 +1,66 @@
+local overrides = require "custom.plugins.overrides"
+
 return {
+----------------------------------------- default plugins ------------------------------------------
+
+  ["goolord/alpha-nvim"] = {
+    rm_default_opts = true,
+    config = function()
+      require "custom.plugins.alpha"
+    end,
+  },
+
+  ["folke/which-key.nvim"] = {
+    rm_default_opts = true,
+    config = function()
+      require "custom.plugins.whichkey"
+    end,
+  },
+
+  ["neovim/nvim-lspconfig"] = {
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.plugins.lspconfig"
+    end,
+  },
+
+  -- override default configs
+  ["kyazdani42/nvim-tree.lua"] = {
+    override_options = overrides.nvimtree,
+    config = function()
+      require "custom.plugins.nvim-tree"
+    end,
+  },
+
+  ["nvim-treesitter/nvim-treesitter"] = {
+    override_options = overrides.treesitter,
+  },
+
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    override_options = overrides.blankline,
+  },
+
+  ["williamboman/mason.nvim"] = {
+    override_options = overrides.mason,
+  },
+
+  --------------------------------------------- custom plugins ----------------------------------------------
   -- autoclose tags in html, jsx etc
   ["windwp/nvim-ts-autotag"] = {
     ft = { "html", "javascriptreact" },
     after = "nvim-treesitter",
     config = function()
-      require("custom.plugins.smolconfigs").autotag()
+      local present, autotag = pcall(require, "nvim-ts-autotag")
+
+      if present then
+        autotag.setup()
+      end
     end,
   },
 
   -- format & linting
   ["jose-elias-alvarez/null-ls.nvim"] = {
+    commit = "ff40739e5be6581899b43385997e39eecdbf9465",
     after = "nvim-lspconfig",
     config = function()
       require "custom.plugins.null-ls"
@@ -40,49 +91,27 @@ return {
   ["andreadev-it/shade.nvim"] = {
     module = "shade",
     config = function()
-      require("custom.plugins.smolconfigs").shade()
+      require "custom.plugins.shade"
     end,
   },
 
   ["Pocco81/AutoSave.nvim"] = {
     module = "autosave",
     config = function()
-      require("custom.plugins.smolconfigs").autosave()
+      require("autosave").setup()
     end,
   },
 
   -- notes stuff
   ["nvim-neorg/neorg"] = {
+    tag = "0.0.12",
     ft = "norg",
     after = "nvim-treesitter",
-    config = function()
-      require "custom.plugins.neorg"
+    setup = function()
+      require("custom.plugins.neorg").autocmd()
     end,
-  },
-
-  ["goolord/alpha-nvim"] = {
     config = function()
-      require "custom.plugins.alpha"
-    end,
-  },
-
-  ["neovim/nvim-lspconfig"] = {
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.plugins.lspconfig"
-    end,
-  },
-
-  ["folke/which-key.nvim"] = {
-    config = function()
-      require "custom.plugins.whichkey"
-    end,
-  },
-
-  ["kyazdani42/nvim-tree.lua"] = {
-    config = function()
-      require "plugins.configs.nvimtree"
-      require "custom.plugins.nvim-tree"
+      require("custom.plugins.neorg").setup()
     end,
   },
 
@@ -114,17 +143,17 @@ return {
     end,
   },
 
-  ["kevinhwang91/promise-async"] = {},
-
-  ["kevinhwang91/nvim-ufo"] = {
-    config = function()
-      require "custom.plugins.ufo"
-    end,
-  },
-
   ["yamatsum/nvim-cursorline"] = {
     config = function()
       require "custom.plugins.nvim-cursorline"
+    end,
+  },
+
+  -- basic diagrams for flow charts etc
+  ["jbyuki/venn.nvim"] = {
+    module = "venn.nvim",
+    config = function()
+      require("custom.plugins.venn").setup()
     end,
   },
 }

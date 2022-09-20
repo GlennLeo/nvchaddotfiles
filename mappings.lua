@@ -1,5 +1,25 @@
 local M = {}
 
+M.general = {
+  n = {
+    [";"] = { ":", "command mode", opts = { nowait = true } },
+  },
+
+  i = {
+    ["jk"] = { "<ESC>", "escape vim" },
+  },
+}
+
+M.venn = {
+  n = {
+    ["vn"] = {
+      function()
+        require("custom.plugins.venn").toggle_maps()
+      end,
+      "toggle venn mappings",
+    },
+  },
+}
 
 M.truzen = {
   n = {
@@ -22,14 +42,7 @@ M.shade = {
         require("shade").toggle()
       end,
 
-      "   toggle shade.nvim",
-    },
-
-    ["<leader>lz"] = {
-      function()
-        require("nvterm.terminal").send("lazygit", "vertical")
-      end,
-      "nvterm lazygit",
+      "toggle shade.nvim",
     },
   },
 }

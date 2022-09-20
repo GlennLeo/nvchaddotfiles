@@ -1,10 +1,6 @@
--- commands
 
--- I dont use shade.nvim/autosave.nvim all the time so made commands for them
--- So this makes easy to lazy load them at cmds
 
 local opts = { noremap = true, silent = true }
-local new_cmd = vim.api.nvim_create_user_command
 local api = vim.api
 local keymap = api.nvim_set_keymap
 local g = vim.g
@@ -56,33 +52,9 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-
-new_cmd("EnableShade", function()
-  require("shade").setup()
-end, {})
-
-new_cmd("EnableAutosave", function()
-  require("autosave").setup()
-end, {})
-
-local autocmd = api.nvim_create_autocmd
-local opt_local = vim.opt_local
-
--- autocmds
--- pretty up norg ft!
-autocmd("FileType", {
-  pattern = "norg",
-  callback = function()
-    opt_local.number = false
-    opt_local.cole = 1
-    opt_local.foldlevel = 10
-    opt_local.foldenable = false
-    opt_local.signcolumn = "yes:2"
-  end,
-})
-
 -- Dynamic terminal padding with/without nvim (for siduck's st only)
--- replace stuff from file
+
+-- replace string from file
 local function sed(from, to, fname)
   vim.cmd(string.format("silent !sed -i 's/%s/%s/g' %s", from, to, fname))
 end
@@ -94,18 +66,22 @@ local function liveReload_xresources()
   )
 end
 
+local autocmd = vim.api.nvim_create_autocmd
+
 autocmd({ "BufNewFile", "BufRead" }, {
   callback = function(ctx)
     -- remove terminal padding
     -- exclude when nvim has norg ft & more than 2 buffers
+
     if vim.bo.ft == "norg" or #vim.fn.getbufinfo { buflisted = 1 } > 1 then
       sed("st.borderpx: 20", "st.borderpx: 0", "~/.Xresources")
       liveReload_xresources()
 
       -- revert xresources change but dont reload it
       sed("st.borderpx: 0", "st.borderpx: 20", "~/.Xresources")
+
       vim.cmd(string.format "silent !xrdb merge ~/.Xresources")
-      api.nvim_del_autocmd(ctx.id)
+      vim.api.nvim_del_autocmd(ctx.id)
     end
   end,
 })
@@ -117,3 +93,5 @@ autocmd("VimLeavePre", {
     liveReload_xresources()
   end,
 })
+
+require "custom.commands"
