@@ -19,7 +19,7 @@ M.treesitter = {
     enable = true,
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
-  }
+  },
 }
 
 M.nvimtree = {
@@ -132,4 +132,17 @@ M.mason = {
   },
 }
 
+M.buffui = {
+  statusline = {
+    separator_style = "default", -- default/round/block/arrow
+    overriden_modules = nil,
+  },
+
+  -- lazyload it when there are 1+ buffers
+  tabufline = {
+    enabled = true,
+    lazyload = false,
+    overriden_modules = nil,
+  },
+}
 return M

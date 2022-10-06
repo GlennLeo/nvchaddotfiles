@@ -26,7 +26,8 @@ return {
 
   -- override default configs
   ["kyazdani42/nvim-tree.lua"] = {
-    override_options = overrides.nvimtree,
+    rm_default_opts = true,
+    after = "ui",
     config = function()
       require "custom.plugins.nvim-tree"
     end,

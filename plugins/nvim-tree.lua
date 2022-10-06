@@ -12,12 +12,14 @@ end
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 local options = {
+  hijack_cursor = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
   },
   renderer = {
     root_folder_modifier = ":t",
+    highlight_git = true,
     icons = {
       glyphs = {
         default = "",
@@ -56,8 +58,8 @@ local options = {
   },
   view = {
     width = 30,
-    height = 30,
     side = "left",
+    number = true,
     mappings = {
       list = {
         { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
